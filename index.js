@@ -34,6 +34,19 @@ server.get('/api/users', (req, res) => {
 
 })
 
+server.get('/api/users/:id', (req, res) => {
+    const userId = req.params.id;
+
+    db
+    .findById(userId)
+    .then( user => {
+        res.status(200).json({ success: true, user })
+    })
+    .catch( err => {
+        res.status(500).json({ error: "The user information could not be retrieved." })
+    })
+})
+
 server.listen(4000, () => {
     console.log('\n *** server listening *** \n')
 })
